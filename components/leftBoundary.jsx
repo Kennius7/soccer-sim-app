@@ -1,11 +1,11 @@
 import { View, Image, Dimensions } from "react-native";
 
 
-export default BottomBoundary = (props) => {
-    const { width } = Dimensions.get("screen");
+export default LeftBoundary = (props) => {
+    const { height } = Dimensions.get("screen");
 
-    const widthBody = width;
-    const heightBody = 3;
+    const widthBody = 3;
+    const heightBody = height;
     const color = props.color;
 
     return (
@@ -14,8 +14,6 @@ export default BottomBoundary = (props) => {
                 backgroundColor: color,
                 position: "absolute",
                 left: 0,
-                right: 0,
-                bottom: 0,
                 width: widthBody,
                 height: heightBody,
             }} 

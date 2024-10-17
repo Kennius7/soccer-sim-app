@@ -4,11 +4,10 @@ import ballIcon from "../assets/images/soccer-ball.png";
 
 export default Ball = (props) => {
 
-    const widthBody = 30;
-    const heightBody = 30;
+    const widthBody = 20;
+    const heightBody = 20;
     const xBody = props.body.position.x - widthBody / 2;
-    const yBody = props.body.position.y - heightBody / 2;
-    const color = props.color;
+    const yBody = props.body.position.y - heightBody / 2 - 50;
 
     return (
         <Image 
