@@ -9,6 +9,8 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+shosan-ssh-file2.pub
+shosan-ssh-file2
 
 # macOS
 .DS_Store
