@@ -5,7 +5,7 @@ export default TopBoundary = (props) => {
     const { width } = Dimensions.get("screen");
 
     const widthBody = width;
-    const heightBody = 3;
+    const heightBody = props.height;
     const color = props.color;
 
     return (

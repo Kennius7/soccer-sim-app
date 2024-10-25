@@ -7,40 +7,45 @@ import { Ball, BottomBoundary, TopBoundary, LeftBoundary, RightBoundary } from "
 
 
 export default function Index() {
-  const [moveX, setMoveX] = useState(-1);
-  const [moveY, setMoveY] = useState(-1);
+  const multiplier = 2;
+  const [moveX, setMoveX] = useState(-multiplier);
+  const [moveY, setMoveY] = useState(-multiplier);
   const [running, setRunning] = useState(true);
-  const boundaryColor = "black";
+  const boundaryColor = "green";
   const { width, height } = Dimensions.get("screen");
-  const boxSize = Math.trunc(Math.max(width, height) * 0.075);
+  const boundaryHeightOrWidth = 3;
+  const boxSize = 16;
+
   const initialBall = Matter.Bodies.rectangle(width / 2, height / 2, boxSize, boxSize);
-  const bottomBoundary = Matter.Bodies.rectangle(width / 2, height - boxSize / 2, width, boxSize, { isStatic: true });
-  const topBoundary = Matter.Bodies.rectangle(width / 2, height - boxSize / 2, width, boxSize, { isStatic: true });
-  const leftBoundary = Matter.Bodies.rectangle(width / 2, height - boxSize / 2, width, boxSize, { isStatic: true });
-  const rightBoundary = Matter.Bodies.rectangle(width / 2, height - boxSize / 2, width, boxSize, { isStatic: true });
+  const bottomBoundary = Matter.Bodies.rectangle(width / 2, height - 25, width, boundaryHeightOrWidth, { isStatic: true });
+  const topBoundary = Matter.Bodies.rectangle(width / 2, 25, width, boundaryHeightOrWidth, { isStatic: true });
+  const leftBoundary = Matter.Bodies.rectangle(width, height, boundaryHeightOrWidth, height, { isStatic: true });
+  const rightBoundary = Matter.Bodies.rectangle(width, height, boundaryHeightOrWidth, height, { isStatic: true });
+
   const engine = Matter.Engine.create({ enableSleeping: false });
   const world = engine.world;
   world.gravity.y = 0;
   world.gravity.x = 0;
-  Matter.World.add(world, [initialBall, BottomBoundary, TopBoundary, LeftBoundary, RightBoundary]);
+
+  Matter.World.add(world, [initialBall, bottomBoundary, topBoundary, leftBoundary, rightBoundary]);
 
   const Physics = (entities, { touches, time, dispatch }) => {
     let engine = entities["physics"].engine;
     Matter.Engine.update(engine, time.delta);
     touches.filter(t => t.type === "press").forEach(t => {
-      if (moveX === -1 && moveY === -1) {
+      if (moveX === -multiplier && moveY === -multiplier) {
         setMoveX(prev => prev * -1);
         Matter.Body.setVelocity(entities["initialBall"].body, { x: moveX, y: moveY });
       }
-      if (moveX === 1 && moveY === -1) {
+      if (moveX === multiplier && moveY === -multiplier) {
         setMoveY(prev => prev * -1);
         Matter.Body.setVelocity(entities["initialBall"].body, { x: moveX, y: moveY });
       }
-      if (moveX === 1 && moveY === 1) {
+      if (moveX === multiplier && moveY === multiplier) {
         setMoveX(prev => prev * -1);
         Matter.Body.setVelocity(entities["initialBall"].body, { x: moveX, y: moveY });
       }
-      if (moveX === -1 && moveY === 1) {
+      if (moveX === -multiplier && moveY === multiplier) {
         setMoveY(prev => prev * -1);
         Matter.Body.setVelocity(entities["initialBall"].body, { x: moveX, y: moveY });
       }
@@ -65,16 +70,19 @@ export default function Index() {
           },
           initialBall: { 
             body: initialBall,
+            ballSize: boxSize,
             renderer: Ball
           },
           bottomBoundary: { 
             body: bottomBoundary,
-            color: 'black', 
+            color: boundaryColor, 
+            height: boundaryHeightOrWidth,
             renderer: BottomBoundary
           },
           topBoundary: { 
             body: topBoundary,
             color: boundaryColor, 
+            height: boundaryHeightOrWidth,
             renderer: TopBoundary
           },
           leftBoundary: { 
