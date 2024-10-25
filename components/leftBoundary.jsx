@@ -4,7 +4,7 @@ import { View, Image, Dimensions } from "react-native";
 export default LeftBoundary = (props) => {
     const { height } = Dimensions.get("screen");
 
-    const widthBody = 3;
+    const widthBody = props.width;
     const heightBody = height;
     const color = props.color;
 

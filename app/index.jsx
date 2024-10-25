@@ -7,20 +7,20 @@ import { Ball, BottomBoundary, TopBoundary, LeftBoundary, RightBoundary } from "
 
 
 export default function Index() {
-  const multiplier = 2;
+  const multiplier = 3;
   const [moveX, setMoveX] = useState(-multiplier);
   const [moveY, setMoveY] = useState(-multiplier);
   const [running, setRunning] = useState(true);
   const boundaryColor = "green";
   const { width, height } = Dimensions.get("screen");
   const boundaryHeightOrWidth = 3;
-  const boxSize = 16;
+  const boxSize = 18;
 
   const initialBall = Matter.Bodies.rectangle(width / 2, height / 2, boxSize, boxSize);
   const bottomBoundary = Matter.Bodies.rectangle(width / 2, height - 25, width, boundaryHeightOrWidth, { isStatic: true });
-  const topBoundary = Matter.Bodies.rectangle(width / 2, 25, width, boundaryHeightOrWidth, { isStatic: true });
-  const leftBoundary = Matter.Bodies.rectangle(width, height, boundaryHeightOrWidth, height, { isStatic: true });
-  const rightBoundary = Matter.Bodies.rectangle(width, height, boundaryHeightOrWidth, height, { isStatic: true });
+  const topBoundary = Matter.Bodies.rectangle(width / 2, 35, width, boundaryHeightOrWidth, { isStatic: true });
+  const leftBoundary = Matter.Bodies.rectangle(25, height / 2, boundaryHeightOrWidth, height, { isStatic: true });
+  const rightBoundary = Matter.Bodies.rectangle(width + 25, height / 2, boundaryHeightOrWidth, height, { isStatic: true });
 
   const engine = Matter.Engine.create({ enableSleeping: false });
   const world = engine.world;
@@ -88,11 +88,13 @@ export default function Index() {
           leftBoundary: { 
             body: leftBoundary,
             color: boundaryColor, 
+            width: boundaryHeightOrWidth,
             renderer: LeftBoundary
           },
           rightBoundary: { 
             body: rightBoundary,
             color: boundaryColor, 
+            width: boundaryHeightOrWidth,
             renderer: RightBoundary
           }
         }}
